@@ -1,4 +1,5 @@
 import React from "react";
+import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
 import { useState } from "react";
 import {
   View,
@@ -24,6 +25,8 @@ const Login = ({ navigation }) => {
   const [isFocusedMail, setIsFocusedMail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
 
   const keyboardHideAndSubmit = () => {
     console.log(`managed to get the data ${state.email}`);
@@ -89,7 +92,7 @@ const Login = ({ navigation }) => {
                   }}
                   placeholder="password"
                   placeholderTextColor="black"
-                  secureTextEntry={true}
+                  secureTextEntry={passwordVisibility}
                   value={state.password}
                   onFocus={() => {
                     setIsFocusedPassword(true);
@@ -100,14 +103,19 @@ const Login = ({ navigation }) => {
                     setState((prevState) => ({ ...prevState, password: value }))
                   }
                 />
-                <Text style={styles.passwordShow}>ShowPassword</Text>
+                <Text
+                  style={styles.passwordShow}
+                  onPress={handlePasswordVisibility}
+                >
+                  ShowPassword
+                </Text>
               </View>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btnSubmit}
                 onPress={keyboardHideAndSubmit}
               >
-                <Text style={styles.btnSubmitTitle}>Register</Text>
+                <Text style={styles.btnSubmitTitle}>Login</Text>
               </TouchableOpacity>
               <View
                 style={{
