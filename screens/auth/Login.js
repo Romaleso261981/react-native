@@ -20,6 +20,7 @@ const initialState = {
 };
 
 const Login = ({ navigation }) => {
+  console.log(navigation);
   const [state, setState] = useState(initialState);
 
   const [isFocusedMail, setIsFocusedMail] = useState(false);
@@ -33,6 +34,9 @@ const Login = ({ navigation }) => {
     setIsShowKeyboard(false);
     setIsFocusedMail(false);
     setIsFocusedPassword(false);
+    setState((prevState) => ({ ...prevState, name: "" }));
+    setState((prevState) => ({ ...prevState, email: "" }));
+    setState((prevState) => ({ ...prevState, password: "" }));
     Keyboard.dismiss();
   };
 
@@ -66,17 +70,18 @@ const Login = ({ navigation }) => {
               <TextInput
                 style={{
                   ...styles.input,
-                  backgroundColor: isFocusedMail ? "#FFFFFF" : "#F6F6F6",
-                  color: isFocusedMail ? "#212121" : "#BDBDBD",
-                  borderColor: isFocusedMail ? "red" : "green",
+                  color: "black",
+                  borderColor: isFocusedMail ? "crimson" : "green",
                 }}
                 placeholder="email"
-                placeholderTextColor="black"
+                placeholderTextColor="blue"
                 onFocus={() => {
                   setIsFocusedMail(true);
                   setIsShowKeyboard(true);
                 }}
-                // onBlur={() => keyboardHide()}
+                onBlur={() => {
+                  setIsFocusedMail(false);
+                }}
                 value={state.email}
                 onChangeText={(value) =>
                   setState((prevState) => ({ ...prevState, email: value }))
@@ -86,19 +91,20 @@ const Login = ({ navigation }) => {
                 <TextInput
                   style={{
                     ...styles.input,
-                    backgroundColor: isFocusedPassword ? "#FFFFFF" : "#F6F6F6",
-                    color: isFocusedPassword ? "#212121" : "#BDBDBD",
-                    borderColor: isFocusedPassword ? "red" : "green",
+                    color: "black",
+                    borderColor: isFocusedPassword ? "crimson" : "green",
                   }}
                   placeholder="password"
-                  placeholderTextColor="black"
+                  placeholderTextColor="blue"
                   secureTextEntry={passwordVisibility}
                   value={state.password}
                   onFocus={() => {
                     setIsFocusedPassword(true);
                     setIsShowKeyboard(true);
                   }}
-                  // onBlur={() => keyboardHide()}
+                  onBlur={() => {
+                    setIsFocusedPassword(false);
+                  }}
                   onChangeText={(value) =>
                     setState((prevState) => ({ ...prevState, password: value }))
                   }

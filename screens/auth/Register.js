@@ -35,6 +35,9 @@ const Registration = ({ navigation }) => {
     setIsFocusedName(false);
     setIsFocusedMail(false);
     setIsFocusedPassword(false);
+    setState((prevState) => ({ ...prevState, name: "" }));
+    setState((prevState) => ({ ...prevState, email: "" }));
+    setState((prevState) => ({ ...prevState, password: "" }));
     Keyboard.dismiss();
   };
 
@@ -68,18 +71,19 @@ const Registration = ({ navigation }) => {
               <TextInput
                 style={{
                   ...styles.input,
-                  backgroundColor: isFocusedName ? "#FFFFFF" : "#F6F6F6",
-                  color: isFocusedName ? "#212121" : "#BDBDBD",
-                  borderColor: isFocusedName ? "red" : "green",
+                  color: "black",
+                  borderColor: isFocusedName ? "crimson" : "green",
                 }}
                 placeholder="name"
-                placeholderTextColor="black"
+                placeholderTextColor="blue"
                 value={state.name}
                 onFocus={() => {
                   setIsFocusedName(true);
                   setIsShowKeyboard(true);
                 }}
-                // onBlur={() => keyboardHide()}
+                onBlur={() => {
+                  setIsFocusedName(false);
+                }}
                 onChangeText={(value) =>
                   setState((prevState) => ({ ...prevState, name: value }))
                 }
@@ -87,17 +91,18 @@ const Registration = ({ navigation }) => {
               <TextInput
                 style={{
                   ...styles.input,
-                  backgroundColor: isFocusedMail ? "#FFFFFF" : "#F6F6F6",
-                  color: isFocusedMail ? "#212121" : "#BDBDBD",
-                  borderColor: isFocusedMail ? "red" : "green",
+                  color: "black",
+                  borderColor: isFocusedMail ? "crimson" : "green",
                 }}
                 placeholder="email"
-                placeholderTextColor="black"
+                placeholderTextColor="blue"
                 onFocus={() => {
                   setIsFocusedMail(true);
                   setIsShowKeyboard(true);
                 }}
-                // onBlur={() => keyboardHide()}
+                onBlur={() => {
+                  setIsFocusedMail(false);
+                }}
                 value={state.email}
                 onChangeText={(value) =>
                   setState((prevState) => ({ ...prevState, email: value }))
@@ -107,19 +112,20 @@ const Registration = ({ navigation }) => {
                 <TextInput
                   style={{
                     ...styles.input,
-                    backgroundColor: isFocusedPassword ? "#FFFFFF" : "#F6F6F6",
-                    color: isFocusedPassword ? "#212121" : "#BDBDBD",
-                    borderColor: isFocusedPassword ? "red" : "green",
+                    color: "black",
+                    borderColor: isFocusedPassword ? "crimson" : "green",
                   }}
                   placeholder="password"
-                  placeholderTextColor="black"
+                  placeholderTextColor="blue"
                   secureTextEntry={passwordVisibility}
                   value={state.password}
                   onFocus={() => {
                     setIsFocusedPassword(true);
                     setIsShowKeyboard(true);
                   }}
-                  // onBlur={() => keyboardHide()}
+                  onBlur={() => {
+                    setIsFocusedPassword(false);
+                  }}
                   onChangeText={(value) =>
                     setState((prevState) => ({ ...prevState, password: value }))
                   }

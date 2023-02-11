@@ -15,8 +15,9 @@ const loadFonts = async () => {
 const MainStack = createStackNavigator();
 
 export default function App() {
-  const [auth, setAuth] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [auth, setAuth] = useState(false);
+
   if (!isReady) {
     return (
       <AppLoading
