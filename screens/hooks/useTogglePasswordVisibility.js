@@ -15,7 +15,6 @@ export const useTogglePasswordVisibility = () => {
   // };
   const handlePasswordVisibility = () => {
     setPasswordVisibility(!passwordVisibility);
-    console.log("handlePasswordVisibility");
   };
 
   return {

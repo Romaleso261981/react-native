@@ -26,11 +26,10 @@ const Registration = ({ navigation }) => {
   const [isFocusedMail, setIsFocusedMail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+  const { passwordVisibility, handlePasswordVisibility } =
     useTogglePasswordVisibility();
 
   const keyboardHideAndSubmit = () => {
-    console.log(`managed to get the data ${state.email}`);
     setIsShowKeyboard(false);
     setIsFocusedName(false);
     setIsFocusedMail(false);
@@ -46,6 +45,9 @@ const Registration = ({ navigation }) => {
     setIsFocusedName(false);
     setIsFocusedMail(false);
     setIsFocusedPassword(false);
+    setState((prevState) => ({ ...prevState, name: "" }));
+    setState((prevState) => ({ ...prevState, email: "" }));
+    setState((prevState) => ({ ...prevState, password: "" }));
     Keyboard.dismiss();
   };
   return (

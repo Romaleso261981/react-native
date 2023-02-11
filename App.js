@@ -3,8 +3,7 @@ import {} from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { AuthRoute, MainRoute } from "./router";
+import routing from "./router";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -12,11 +11,9 @@ const loadFonts = async () => {
     "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
   });
 };
-const MainStack = createStackNavigator();
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
-  const [auth, setAuth] = useState(false);
 
   if (!isReady) {
     return (
@@ -27,31 +24,33 @@ export default function App() {
       />
     );
   }
-  return (
-    <NavigationContainer>
-      <MainStack.Navigator>
-        <MainStack.Screen
-          options={{
-            headerShown: false,
-          }}
-          name="Auth"
-          component={AuthRoute}
-        />
-        <MainStack.Screen
-          options={{
-            headerShown: false,
-            headerRight: () => (
-              <Button
-                onPress={() => alert("This is a button!")}
-                title="Info"
-                color="#fff"
-              />
-            ),
-          }}
-          name="Posts"
-          component={MainRoute}
-        />
-      </MainStack.Navigator>
-    </NavigationContainer>
-  );
+  return <NavigationContainer>{routing}</NavigationContainer>;
 }
+
+// return (
+//   <NavigationContainer>
+//     <MainStack.Navigator>
+//       <MainStack.Screen
+//         options={{
+//           headerShown: false,
+//           headerRight: () => (
+//             <Button
+//               onPress={() => alert("This is a button!")}
+//               title="Info"
+//               color="#fff"
+//             />
+//           ),
+//         }}
+//         name="Posts"
+//         component={AuthRoute}
+//       />
+//       <MainStack.Screen
+//         options={{
+//           headerShown: false,
+//         }}
+//         name="Auth"
+//         component={MainRoute}
+//       />
+//     </MainStack.Navigator>
+//   </NavigationContainer>
+// );
