@@ -1,5 +1,5 @@
 import React from "react";
-import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
+import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
 import { useState } from "react";
 import {
   View,

@@ -1,56 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {} from "react-native";
-import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
-import { NavigationContainer } from "@react-navigation/native";
-import routing from "./router";
 
-const loadFonts = async () => {
-  await Font.loadAsync({
-    "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
-  });
-};
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import Main from "./components/Main";
+
+// const loadApplication = async () => {
+//   await Font.loadAsync({
+//     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
+//   });
+// };
 
 export default function App() {
-  const [isReady, setIsReady] = useState(false);
+  // const [iasReady, setIasReady] = useState(false);
+  // const font = loadApplication();
+  // console.log(font);
 
-  if (!isReady) {
-    return (
-      <AppLoading
-        startAsync={loadFonts}
-        onFinish={() => setIsReady(true)}
-        onError={(error) => console.log(error)}
-      />
-    );
-  }
-  return <NavigationContainer>{routing}</NavigationContainer>;
+  // if (!iasReady) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={font}
+  //       onFinish={() => setIasReady(true)}
+  //       onError={console.warn}
+  //     />
+  //   );
+  // }
+
+  return (
+    <Provider store={store}>
+      <Main />
+    </Provider>
+  );
 }
-
-// return (
-//   <NavigationContainer>
-//     <MainStack.Navigator>
-//       <MainStack.Screen
-//         options={{
-//           headerShown: false,
-//           headerRight: () => (
-//             <Button
-//               onPress={() => alert("This is a button!")}
-//               title="Info"
-//               color="#fff"
-//             />
-//           ),
-//         }}
-//         name="Posts"
-//         component={AuthRoute}
-//       />
-//       <MainStack.Screen
-//         options={{
-//           headerShown: false,
-//         }}
-//         name="Auth"
-//         component={MainRoute}
-//       />
-//     </MainStack.Navigator>
-//   </NavigationContainer>
-// );

@@ -1,108 +1,80 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
-import { Pressable } from "react-native";
-import Login from "./screens/auth/Login";
-import Registration from "./screens/auth/Register";
-import CreatePostsScreen from "./screens/mainScreen/CreatePostsScreen";
-import PostsScreen from "./screens/mainScreen/PostsScreen";
-import ProfileScreen from "./screens/mainScreen/ProfileScreen";
 
-const MainStack = createStackNavigator();
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
-export const routing = () => {
-  const [auth, setAuth] = useState(true);
-  const navigation = useNavigation();
-  if (!auth) {
+import Login from "./screens/auth/Login";
+import Registration from "./screens/auth/Register";
+import PostsScreen from "./screens/mainScreen/PostsScreen";
+import CreateScreen from "./screens/mainScreen/CreateScreen";
+import ProfileScreen from "./screens/mainScreen/ProfileScreen";
+
+// icons import
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+
+export const useRoute = () => {
+  const isAuth = true;
+  if (!isAuth) {
     return (
-      <MainTab.Navigator>
-        <MainTab.Screen
-          name="Posts"
-          component={PostsScreen}
+      <AuthStack.Navigator>
+        <AuthStack.Screen
           options={{
-            tabBarIcon: () => <AntDesign name="appstore-o" size={24} />,
-            tabBarLabel: "",
-            headerRight: () => (
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("Register");
-                }}
-              >
-                <AntDesign
-                  name="logout"
-                  size={16}
-                  style={{ right: 20, opacity: 0.3 }}
-                />
-              </Pressable>
-            ),
+            headerShown: false,
           }}
+          name="Login"
+          component={Login}
         />
-        <MainTab.Screen
-          name="Create a post"
-          component={CreatePostsScreen}
+        <AuthStack.Screen
           options={{
-            headerLeft: () => (
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("Posts", { screen: "Posts" });
-                }}
-              >
-                <AntDesign
-                  name="arrowleft"
-                  size={24}
-                  style={{ left: 20 }}
-                  color="black"
-                />
-              </Pressable>
-            ),
-            tabBarIcon: () => (
-              <AntDesign
-                name="pluscircle"
-                size={32}
-                Style={{
-                  capInsets: {
-                    bottom: 20,
-                    left: null,
-                    right: undefined,
-                    top: 50,
-                  },
-                }}
-                color={"orange"}
-              />
-            ),
-            tabBarLabel: "",
+            headerShown: false,
           }}
+          name="Register"
+          component={Registration}
         />
-        <MainTab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            tabBarIcon: () => <AntDesign name="user" size={24} />,
-            tabBarLabel: "",
-          }}
-        />
-      </MainTab.Navigator>
+      </AuthStack.Navigator>
     );
   }
   return (
-    <MainStack.Navigator>
-      <MainStack.Screen
+    <MainTab.Navigator
+      tabBarOptions={{
+        showLabel: false,
+      }}
+    >
+      <MainTab.Screen
         options={{
-          headerShown: false,
+          tabBarIcon: ({ focused, size, color }) => (
+            <MaterialCommunityIcons
+              name="postage-stamp"
+              size={size}
+              color={color}
+            />
+          ),
         }}
-        name="Login"
-        component={Login}
+        name="Posts"
+        component={PostsScreen}
       />
-      <MainStack.Screen
+      <MainTab.Screen
         options={{
-          headerShown: false,
+          tabBarIcon: ({ focused, size, color }) => (
+            <AntDesign name="pluscircleo" size={size} color={color} />
+          ),
         }}
-        name="Register"
-        component={Registration}
+        name="Create"
+        component={CreateScreen}
       />
-    </MainStack.Navigator>
+      <MainTab.Screen
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <AntDesign name="profile" size={size} color="color" />
+          ),
+        }}
+        name="Profile"
+        component={ProfileScreen}
+      />
+    </MainTab.Navigator>
   );
 };
